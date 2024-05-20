@@ -21,3 +21,16 @@ jobs:
       run: |
         unzip ${{ matrix.domain }}.zip
         ls -al
+
+    - name: update qiniu ${{ matrix.domain }}
+      uses: foxundermoon/upload-qiniu-cert-action@master
+      with:
+        ak: ${{ secrets.QINIU_AK }}
+        sk: ${{ secrets.QINIU_SK }}
+        domain: ${{ matrix.domain }}
+        update-domains: |
+          .${{ matrix.domain }} | https | http2
+          ${{ matrix.domain }} | https | http2
+        debug: 'yes'
+        cert-path: 'fullchain1.pem'
+        key-path: 'privkey1.pem'
