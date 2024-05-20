@@ -2,8 +2,8 @@ name: Generate LetsEncrypt Certificate
 on: 
   workflow_dispatch:
 jobs:
-  build:
-    name: build
+  certbot:
+    name: certbot
     runs-on: ubuntu-latest
     steps:
     - name: Generate LetsEncrypt Cert
@@ -11,6 +11,6 @@ jobs:
       with:
         cloudflare_dns_api_token: ${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}
         domain_name: dianhsu.com
-        email: ${{ secrets.CLOUDFLARE_EMAIL }}
+        email: ${{ secrets.NOTIFY_EMAIL }}
         certs_file_name: dianhsu.com
-        dry_run: true
+        dry_run: false
