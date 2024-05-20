@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
 jobs:
   certbot:
+    strategy:
+      matrix:
+        domain: [dianhsu.com, cdn.dianhsu.com]
     name: certbot
     runs-on: ubuntu-latest
     steps:
@@ -10,7 +13,11 @@ jobs:
       uses: shibme/cloudflare-letsencrypt-certbot-generate@main
       with:
         cloudflare_dns_api_token: ${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}
-        domain_name: dianhsu.com
+        domain_name: ${{ matrix.domain }}
         email: ${{ secrets.NOTIFY_EMAIL }}
-        certs_file_name: dianhsu.com
+        certs_file_name: ${{ matrix.domain }}
         dry_run: false
+    - name: Upload to Qiniu
+      run: |
+        unzip ${{ matrix.domain }}.zip
+        ls -al
