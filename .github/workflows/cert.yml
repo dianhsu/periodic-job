@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Generate LetsEncrypt Cert
-      uses: shibme/cloudflare-letsencrypt-certbot-generate@main
+      uses: dianhsu-official/cloudflare-letsencrypt-certbot-generate@main
       with:
         cloudflare_dns_api_token: ${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}
         domain_name: ${{ matrix.domain }}
@@ -23,7 +23,7 @@ jobs:
         ls -al
 
     - name: update qiniu ${{ matrix.domain }}
-      uses: foxundermoon/upload-qiniu-cert-action@master
+      uses: dianhsu-official/upload-qiniu-cert-action@master
       with:
         ak: ${{ secrets.QINIU_AK }}
         sk: ${{ secrets.QINIU_SK }}
