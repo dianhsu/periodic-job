@@ -1,0 +1,16 @@
+name: Generate LetsEncrypt Certificate
+on: 
+  workflow_dispatch:
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Generate LetsEncrypt Cert
+      uses: shibme/cloudflare-letsencrypt-certbot-generate@main
+      with:
+        cloudflare_dns_api_token: ${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}
+        domain_name: dianhsu.com
+        email: ${{ secrets.CLOUDFLARE_EMAIL }}
+        certs_file_name: dianhsu.com
+        dry_run: true
