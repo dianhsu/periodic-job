@@ -1,6 +1,8 @@
 name: Generate LetsEncrypt Certificate
 on: 
   workflow_dispatch:
+  schedule:
+    - cron: "21 3 1 * *"
 jobs:
   certbot:
     strategy:
@@ -17,12 +19,10 @@ jobs:
         email: ${{ secrets.NOTIFY_EMAIL }}
         certs_file_name: ${{ matrix.domain }}
         dry_run: false
-    - name: Upload to Qiniu
+    - name: Unzip cert
       run: |
         unzip ${{ matrix.domain }}.zip
-        ls -al
-
-    - name: update qiniu ${{ matrix.domain }}
+    - name: Upload cert <${{ matrix.domain }}> Qiniu
       uses: dianhsu-official/upload-qiniu-cert-action@master
       with:
         ak: ${{ secrets.QINIU_AK }}
@@ -31,6 +31,5 @@ jobs:
         update-domains: |
           .${{ matrix.domain }} | https | http2
           ${{ matrix.domain }} | https | http2
-        debug: 'yes'
         cert-path: 'fullchain1.pem'
         key-path: 'privkey1.pem'
