@@ -5,7 +5,7 @@ jobs:
   certbot:
     strategy:
       matrix:
-        domain: [dianhsu.com, cdn.dianhsu.com]
+        domain: [dianhsu.com, cdn.dianhsu.com, www.dianhsu.com]
     name: certbot
     runs-on: ubuntu-latest
     steps:
