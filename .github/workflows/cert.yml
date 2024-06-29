@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Generate LetsEncrypt Cert
-      uses: dianhsu-official/cloudflare-letsencrypt-certbot-generate@main
+      uses: dianhsu/cloudflare-letsencrypt-certbot-generate@main
       with:
         cloudflare_dns_api_token: ${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}
         domain_name: ${{ matrix.domain }}
